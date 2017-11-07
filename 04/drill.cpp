@@ -1,6 +1,13 @@
 #include "std_lib_facilities.h"
 #include <cfloat>
 
+/*
+ * Input lengths and units.
+ * Convert to meters.
+ * Show min and max, sum.
+ */
+
+
 constexpr double cm = 1 / 100.0;
 constexpr double in = 2.54 * cm;
 constexpr double ft = 12 * in;
