@@ -5,6 +5,23 @@
 Token get_token() {
 }
 
+class Token_stream {
+public:
+    Token_stream();
+    Token get();
+    void putback(Token t);
+private:
+    bool full {false};
+    Token buffer;
+};
+
+void Token_stream::putback(Token t) {
+    buffer = t;
+    full = true;
+}
+
+
+////////////////////////////////////////////////////////////////
 
 double expression() {
     double left = term();
