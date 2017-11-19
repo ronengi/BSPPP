@@ -5,10 +5,14 @@ Expression:
     Expression "-" Term
 
 Term:
+    Factorial
+    Term "*" Factorial
+    Term "/" Factorial
+    Term "%" Factorial
+
+Factorial:
     Primary
-    Term "*" Primary
-    Term "/" Primary
-    Term "%" Primary
+    Factorial "!"
 
 Primary:
     Number
