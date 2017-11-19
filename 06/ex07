@@ -1,0 +1,27 @@
+// bitwise logical expression grammar
+
+ 
+Or:
+    Xor
+    Or "|" Xor
+
+Xor:
+    And
+    Xor "^" And
+
+And:
+    Unary
+    And "&" Unary
+
+Unary:
+    Primary
+    "!" Primary
+    "~" Primary
+
+Primary:
+    Bit
+    "(" Or ")"
+
+Bit:
+    0
+    1
