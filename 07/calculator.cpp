@@ -171,23 +171,23 @@ double expression() {
 int main() {
     double val = 0.0;
     try {
-        cout << "Expression: ";
         while (cin) {
+            cout << "> ";
             Token t = ts.get();
+            while (t.kind == '=')
+                t = ts.get();
             if (t.kind == 'q')
-                break;
-            if (t.kind == '=') {
-                cout << "=" << val << "\n";
-                cout << "Expression: ";
-            }
-            else {
-                ts.putback(t);
-                val = expression();
-            }
+                return 0;
+            ts.putback(t);
+            cout << "=" << expression() << "\n";
         }
     }
+    catch (runtime_error& e) {
+        cerr << "runtime_error: " << e.what() << "\n";
+        return 1;
+    }
     catch (exception& e) {
-        cerr << e.what() << "\n";
+        cerr << "exception: " << e.what() << "\n";
         return 1;
     }
     catch (...) {
