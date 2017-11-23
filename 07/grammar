@@ -17,6 +17,8 @@ Factorial:
 Primary:
     Number
     "(" Expression ")"
+    "-" Primary
+    "+" Primary
 
 Number:
     floating-point-literal

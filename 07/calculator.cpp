@@ -1,5 +1,13 @@
 #include "std_lib_facilities.h"
 
+
+const char number = '8';
+const char quit = 'q';
+const char print = '=';
+const string prompt = "> ";
+const string result = "= ";
+
+
 class Token {
 public:
     char kind;
@@ -20,7 +28,8 @@ class Token_stream {
 public:
     Token_stream();
     Token get();
-    void putback(Token t);
+    void putback(Token t);      // put a Token back
+    void ignore(char c);        // discard characters up to and including a c
 private:
     bool full{false};
     Token buffer;
@@ -31,6 +40,8 @@ private:
 Token_stream::Token_stream()
 : full(false), buffer(0) {
 }
+
+//----------------------------------------------------------------------------------
 
 void Token_stream::putback(Token t) {
     if (full)
@@ -49,21 +60,35 @@ Token Token_stream::get() {
     char ch;
     cin >> ch;
     switch (ch) {
-        case '=':
-        case 'q':
-        case '(': case ')': case '+': case '-': case '*': case '/': case '!':
+        case quit:
+        case print:
+        case '(':
+        case ')':
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '%':
+        case '!':
             return Token{ch};
         case '.':
-        case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
         {
             cin.putback(ch);
             double val;
             cin >> val;
-            return Token{'8', val};
+            return Token{number, val};
         }
         default:
             error("bad token");
     }
+}
+
+//----------------------------------------------------------------------------------
+
+void Token_stream::ignore(char c) {
+    // TODO: continue here from p.273
 }
 
 //----------------------------------------------------------------------------------
@@ -86,8 +111,12 @@ double primary() {
             if (t.kind != ')') error("')' expected");
             return d;
         }
-        case '8': // represents a number
+        case number: // represents a number
             return t.value;
+        case '-':
+            return - primary();
+        case '+':
+            return primary();
         default:
             error("primary expected");
     }
@@ -137,6 +166,14 @@ double term() {
                 t = ts.get();
                 break;
             }
+            case '%':
+            {
+                double d = factorial();
+                if (d == 0) error("%: divide by zero");
+                left = fmod(left, d);
+                t = ts.get();
+                break;
+            }
             default:
                 ts.putback(t);
                 return left;
@@ -168,19 +205,25 @@ double expression() {
 
 //----------------------------------------------------------------------------------
 
-int main() {
-    double val = 0.0;
-    try {
+void calculate() {
         while (cin) {
-            cout << "> ";
+            cout << prompt;
             Token t = ts.get();
-            while (t.kind == '=')
+            while (t.kind == print)
                 t = ts.get();
-            if (t.kind == 'q')
+            if (t.kind == quit)
                 return 0;
             ts.putback(t);
-            cout << "=" << expression() << "\n";
+            cout << result << expression() << "\n";
         }
+}
+
+//----------------------------------------------------------------------------------
+
+int main() {
+    try {
+        calculate();
+        return 0;
     }
     catch (runtime_error& e) {
         cerr << "runtime_error: " << e.what() << "\n";
