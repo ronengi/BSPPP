@@ -1,0 +1,24 @@
+
+Expression:
+    Term
+    Expression "+" Term
+    Expression "-" Term
+
+Term:
+    Factorial
+    Term "*" Factorial
+    Term "/" Factorial
+    Term "%" Factorial
+
+Factorial:
+    Primary
+    Factorial "!"
+
+Primary:
+    Number
+    "(" Expression ")"
+
+Number:
+    floating-point-literal
+
+
