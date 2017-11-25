@@ -38,8 +38,6 @@ double get_value(string s) {
     return 0.0;
 }
 
-
-
 /*******************************************************************************
  * Set the value named s to d
  ******************************************************************************/
@@ -98,33 +96,33 @@ public:
     Token_stream();
     Token get();
     void putback(Token t);      // put a Token back
+    bool full();
     void ignore(char c);        // discard characters up to and including a c
 private:
-    bool full{false};
-    Token buffer;
+    vector<Token> buffer;
 };
 
 /*******************************************************************************
  ******************************************************************************/
-Token_stream::Token_stream()
-: full(false), buffer(0) {
-}
+Token_stream::Token_stream() { }
 
 /*******************************************************************************
  ******************************************************************************/
 void Token_stream::putback(Token t) {
-    if (full)
-        error("putback() into a full buffer");
-    buffer = t;
-    full = true;
+    // if (full())
+    //     error("putback() into a full buffer");
+    buffer.push_back(t);
+    // full = true;
 }
 
 /*******************************************************************************
  ******************************************************************************/
 Token Token_stream::get() {
-    if (full) {
-        full = false;
-        return buffer;
+    if (full()) {
+        // full = false;
+        Token t = buffer[buffer.size() - 1];
+        buffer.pop_back();
+        return t;
     }
     char ch;
     cin >> ch;
@@ -171,17 +169,23 @@ Token Token_stream::get() {
 /*******************************************************************************
  ******************************************************************************/
 void Token_stream::ignore(char c) {
-    if (full && c == buffer.kind) {
-        full = false;
+    while (full() && c != buffer.back().kind)
+        buffer.pop_back();
+    if (full()) {           // c is found in buffer
+        buffer.pop_back();
         return;
     }
-    full = false;
-
     char ch = 0;
     while (cin >> ch) {
         if (c == ch)
             return;
     }
+}
+
+/*******************************************************************************
+ ******************************************************************************/
+bool Token_stream::full() {
+    return (!buffer.empty());
 }
 
 /*******************************************************************************
@@ -209,7 +213,7 @@ double primary() {
         case name:
             return get_value(t.name);
         case '-':
-            return - primary();
+            return 0.0 - primary();
         case '+':
             return primary();
         default:
@@ -300,10 +304,19 @@ double expression() {
 
 /*******************************************************************************
  ******************************************************************************/
+double assignment(Token& t) {
+    // assume variable name is in t
+    // assume assign token has been seen
+    string var_name = t.name;
+    double d = expression();
+    set_value(var_name, d);
+    return d;
+}
+
+/*******************************************************************************
+ ******************************************************************************/
 double declaration() {
-    // assume we have seen "let"
-    // handle: name = expression
-    // declare a variable called "name" with the initial value "expression"
+    // assume "let" has been seen
     Token t = ts.get();
     if (t.kind != name)
         error("name expected in declaration");
@@ -314,9 +327,8 @@ double declaration() {
         err << "'" << assign << "' missing in declaration of: '" << var_name << "'";
         error(err.str());
     }
-
     double d = expression();
-    define_name(var_name, d);
+    define_name(var_name, d);   // declare new variable called "name" with the initial value "expression"
     return d;
 }
 
@@ -327,6 +339,15 @@ double statement() {
     switch (t.kind) {
         case let:
             return declaration();
+        case name:
+        {
+            Token t2 = ts.get();
+            if (t2.kind == assign)      // name "="
+                return assignment(t);
+            ts.putback(t2);
+            ts.putback(t);
+            return expression();        // name ...
+        }
         default:
             ts.putback(t);
             return expression();

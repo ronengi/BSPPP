@@ -7,10 +7,14 @@ Calculation:
 
 Statement:
     Declaration
+    Assignment
     Expression
 
 Declaration:
     "let" Name "=" Expression
+
+Assignment:
+    Name "=" Expression
 
 Expression:
     Term
