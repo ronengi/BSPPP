@@ -1,4 +1,17 @@
 
+Calculation:
+    Statement
+    Print
+    Quit
+    Calculation Statement
+
+Statement:
+    Declaration
+    Expression
+
+Declaration:
+    "let" Name "=" Expression
+
 Expression:
     Term
     Expression "+" Term
@@ -16,6 +29,7 @@ Factorial:
 
 Primary:
     Number
+    Name
     "(" Expression ")"
     "-" Primary
     "+" Primary
