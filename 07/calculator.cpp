@@ -212,10 +212,6 @@ double primary() {
             return t.value;
         case name:
             return get_value(t.name);
-        case '-':
-            return 0.0 - primary();
-        case '+':
-            return primary();
         default:
             error("primary expected");
     }
@@ -223,43 +219,35 @@ double primary() {
 
 /*******************************************************************************
  ******************************************************************************/
-double factorial() {
-    double left = primary();
-    Token t = ts.get();
-    while (true) {
-	switch (t.kind) {
-	    case '!':
-	    {
-		int fac = left, res = 1;
-		while (fac > 0) {
-		    res *= fac;
-		    --fac;
-		}
-		left = res;
-		t =ts.get();
-		break;
-	    }
-	    default:
-		ts.putback(t);
-		return left;
-	}
+int factorial(int n) {
+    if (n < 0)
+        error("factorial: negative argument");
+    int res = 1;
+    while (n > 0) {
+        res *= n;
+        --n;
     }
+    return res;
 }
 
 /*******************************************************************************
  ******************************************************************************/
 double term() {
-    double left = factorial();
+    double left = primary();
     Token t = ts.get();
     while (true) {
         switch (t.kind) {
+            case '!':
+                left = factorial(left);
+                t = ts.get();
+                break;
             case '*':
-                left *= factorial();
+                left *= primary();
                 t = ts.get();
                 break;
             case '/':
             {
-                double d = factorial();
+                double d = primary();
                 if (d == 0) error("division by zero");
                 left /= d;
                 t = ts.get();
@@ -267,7 +255,7 @@ double term() {
             }
             case '%':
             {
-                double d = factorial();
+                double d = primary();
                 if (d == 0) error("%: divide by zero");
                 left = fmod(left, d);
                 t = ts.get();
@@ -281,6 +269,10 @@ double term() {
 }
 
 /*******************************************************************************
+        case '-':
+            return 0.0 - expression();
+        case '+':
+            return expression();
  ******************************************************************************/
 double expression() {
     double left = term();
@@ -380,6 +372,11 @@ void calculate() {
  ******************************************************************************/
 int main() {
     try {
+
+        // predefine names:
+        define_name("pi", 3.1415926535);
+        define_name("e", 2.7182818284);
+
         calculate();
         return 0;
     }

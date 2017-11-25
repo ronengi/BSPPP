@@ -20,23 +20,20 @@ Expression:
     Term
     Expression "+" Term
     Expression "-" Term
+    "-" Expression
+    "+" Expression
 
 Term:
-    Factorial
-    Term "*" Factorial
-    Term "/" Factorial
-    Term "%" Factorial
-
-Factorial:
     Primary
-    Factorial "!"
+    primary "!"
+    Term "*" Primary
+    Term "/" Primary
+    Term "%" Primary
 
 Primary:
     Number
     Name
     "(" Expression ")"
-    "-" Primary
-    "+" Primary
 
 Number:
     floating-point-literal
