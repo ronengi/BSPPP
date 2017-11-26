@@ -1,16 +1,47 @@
 #include "std_lib_facilities.h"
 
+/*
+ * Calculator program
+ * TODO:
+ *  from chapter 7:
+ *      ex 1
+ *      ex 3
+ *      ex 4
+ *      ex 5
+ *      ex 6
+ *      ex 7
+ *      ex 9
+ *
+ * TODO: make calculator a separate project.
+ *
+ *  */
 
 const char number = '8';
-const char quit = 'q';
 const char print = ';';
 const char name = 'a';
+const char func = 'f';
+const char quit = 'Q';
 const char let = 'L';
 const char assign = '=';
 const string prompt = "> ";
 const string result = "= ";
+const string quitkey = "quit";
 const string declkey = "let";
 
+
+/*******************************************************************************
+ ******************************************************************************/
+vector<string> functions;
+
+/*******************************************************************************
+ ******************************************************************************/
+bool isfunction(string s) {
+    for (const string& fn : functions) {
+        if (fn == s)
+            return true;
+    }
+    return false;
+}
 
 /*******************************************************************************
  ******************************************************************************/
@@ -68,6 +99,11 @@ bool is_declared(string var) {
  ******************************************************************************/
 /* Add {var, val} to var_table */
 double define_name(string var, double val) {
+    if (isfunction(var)) {
+        stringstream err;
+        err << "'" << var << "' is a function name";
+        error(err.str());
+    }
     if (is_declared(var)) {
     stringstream err;
     err << "'" << var << "' declared twice";
@@ -127,7 +163,6 @@ Token Token_stream::get() {
     char ch;
     cin >> ch;
     switch (ch) {
-        case quit:
         case print:
         case assign:
         case '(':
@@ -138,6 +173,7 @@ Token Token_stream::get() {
         case '/':
         case '%':
         case '!':
+        case ',':
             return Token{ch};
         case '.':
         case '0': case '1': case '2': case '3': case '4':
@@ -158,6 +194,10 @@ Token Token_stream::get() {
                 cin.putback(ch);
                 if (s == declkey)       // declaration keyword
                     return Token(let);
+                if (s == quitkey)
+                    return Token(quit);
+                if (isfunction(s))
+                    return Token{func, s};
                 return Token{name, s};
             }
             stringstream err;
@@ -198,6 +238,41 @@ double expression();
 
 /*******************************************************************************
  ******************************************************************************/
+double getfunction(string s) {
+    // assume s is a valid function name
+    if (s == "sqrt") {
+        Token t = ts.get();
+        if (t.kind != '(')
+            error("function 'sqrt': '(' expected");
+        double fn = expression();
+        if (fn < 0)
+            error("function 'sqrt': negative argument");
+        t = ts.get();
+        if (t.kind != ')')
+            error("function 'sqrt': ')' expected");
+        return sqrt(fn);
+    }
+    else if (s == "pow") {
+        Token t = ts.get();
+        if (t.kind != '(')
+            error("function 'pow': '(' expected");
+        double fn1 = expression();
+        t = ts.get();
+        if (t.kind != ',')
+            error("function 'pow': ',' expected");
+        double fn2 = expression();
+        t = ts.get();
+        if (t.kind != ')')
+            error("function 'pow': ')' expected");
+        return pow(fn1, fn2);
+    }
+    else {
+        error("function: invalid function name: ", s);
+    }
+}
+
+/*******************************************************************************
+ ******************************************************************************/
 int factorial(int n) {
     if (n < 0)
         error("factorial: negative argument");
@@ -225,6 +300,9 @@ double primary() {
         }
         case number: // represents a number
             prim = t.value;
+            break;
+        case func:
+            prim = getfunction(t.name);
             break;
         case name:
             prim = get_value(t.name);
@@ -386,6 +464,10 @@ void calculate() {
  ******************************************************************************/
 int main() {
     try {
+
+        // define functions:
+        functions.push_back("sqrt");
+        functions.push_back("pow");
 
         // predefine names:
         define_name("pi", 3.1415926535);

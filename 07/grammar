@@ -32,10 +32,29 @@ Primary:
     Name
     "(" Expression ")"
     primary "!"
+    Function
     "-" Primary
     "+" Primary
 
 Number:
     floating-point-literal
 
+Function:
+    sqrt "(" Expression ")"
+    pow "(" Expression "," Expression ")"
 
+Name:
+    Letter
+    Valid-Name-Chars
+
+Valid-Name-Chars:
+    Letter
+    Digit
+    Valid-Name-Chars
+
+Letter:
+    a-z
+    A-Z
+
+DIgit:
+    0-9
