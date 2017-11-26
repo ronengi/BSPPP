@@ -20,12 +20,9 @@ Expression:
     Term
     Expression "+" Term
     Expression "-" Term
-    "-" Expression
-    "+" Expression
 
 Term:
     Primary
-    primary "!"
     Term "*" Primary
     Term "/" Primary
     Term "%" Primary
@@ -34,6 +31,9 @@ Primary:
     Number
     Name
     "(" Expression ")"
+    primary "!"
+    "-" Primary
+    "+" Primary
 
 Number:
     floating-point-literal

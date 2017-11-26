@@ -198,27 +198,6 @@ double expression();
 
 /*******************************************************************************
  ******************************************************************************/
-double primary() {
-    Token t = ts.get();
-    switch (t.kind) {
-        case '(':
-        {
-            double d = expression();
-            t = ts.get();
-            if (t.kind != ')') error("')' expected");
-            return d;
-        }
-        case number: // represents a number
-            return t.value;
-        case name:
-            return get_value(t.name);
-        default:
-            error("primary expected");
-    }
-}
-
-/*******************************************************************************
- ******************************************************************************/
 int factorial(int n) {
     if (n < 0)
         error("factorial: negative argument");
@@ -232,15 +211,50 @@ int factorial(int n) {
 
 /*******************************************************************************
  ******************************************************************************/
+double primary() {
+    double prim = 0.0;
+    Token t = ts.get();
+    switch (t.kind) {
+        case '(':
+        {
+            double d = expression();
+            t = ts.get();
+            if (t.kind != ')') error("')' expected");
+            prim = d;
+            break;
+        }
+        case number: // represents a number
+            prim = t.value;
+            break;
+        case name:
+            prim = get_value(t.name);
+            break;
+        case '-':
+            prim -= primary();
+            break;
+        case '+':
+            prim = primary();
+            break;
+        default:
+            error("primary expected");
+    }
+    t = ts.get();           // check for factorial
+    if (t.kind == '!') {
+        prim = factorial(prim);
+    }
+    else {
+        ts.putback(t);
+    }
+    return prim;
+}
+
+/*******************************************************************************
+ ******************************************************************************/
 double term() {
     double left = primary();
     Token t = ts.get();
     while (true) {
         switch (t.kind) {
-            case '!':
-                left = factorial(left);
-                t = ts.get();
-                break;
             case '*':
                 left *= primary();
                 t = ts.get();
