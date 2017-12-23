@@ -1,3 +1,9 @@
 *out
+*o
 *swp
+!makefile
+
+# other executables
+09/Library/library
+09/Rational/Factorization
 
