@@ -1,0 +1,40 @@
+Calculation:
+	Expression
+	PRINT
+	QUIT
+	Calculation Expression
+
+Expression:
+	Term
+	Expression + Term
+	Expression - Term
+
+Term:
+	Factorial
+	Term * Factorial
+	Term / Factorial
+	Term % Factorial
+
+Factorial:
+	Primary
+	Factorial !
+
+Primary:
+	Number
+	( Expression )
+	- Primary
+	+ Primary
+	sqrt ( expression )
+	pow ( expression, expression )
+	Name
+	DECLARE Name ASSIGN Expression
+	Name ASSIGN Expression
+
+Declaration:
+	"let" Name "=" Expression
+
+Assignment:
+	Name "=" Expression
+
+Number:
+	floating-point-literal
