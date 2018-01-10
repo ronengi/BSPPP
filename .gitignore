@@ -1,7 +1,8 @@
 *out
 *o
 *swp
-!makefile
+build/
+nbproject/
 
 # other executables
 09/Library/library
