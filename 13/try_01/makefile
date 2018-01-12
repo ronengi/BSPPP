@@ -1,0 +1,2 @@
+ex:		drill_01.cpp
+		g++ -Wno-deprecated -I/usr/local/include -I/usr/include/freetype2 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_THREAD_SAFE -D_REENTRANT -o 'drill' 'drill_01.cpp'  ../bs_fltk/Graph.cpp ../bs_fltk/GUI.cpp ../bs_fltk/Simple_window.cpp ../bs_fltk/Window.cpp  /usr/local/lib/libfltk_images.a -lpng -lz -ljpeg /usr/local/lib/libfltk.a -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 

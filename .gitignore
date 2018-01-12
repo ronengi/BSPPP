@@ -3,6 +3,7 @@
 *swp
 build/
 nbproject/
+*jpg
 
 # other executables
 09/Library/library
