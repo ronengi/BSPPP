@@ -5,23 +5,21 @@
  */
 
 /*
- * File:   D1.hpp
+ * File:   B2.hpp
  * Author: Ronen Gilead-Raz <ronengi@gmail.com>
  *
- * Created on January 13, 2018, 11:11 PM
+ * Created on January 14, 2018, 12:00 AM
  */
 
-#ifndef D1_HPP
-#define D1_HPP
+#ifndef B2_HPP
+#define B2_HPP
 
 #include <iostream>
 using namespace std;
-#include "B1.hpp"
 
-class D1 : public B1 {
+class B2 {
 public:
-    void vf() override;
-    void f();
+    virtual void pvf() =0;
 };
 
-#endif /* D1_HPP */
+#endif /* B2_HPP */

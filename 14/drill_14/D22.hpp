@@ -5,23 +5,26 @@
  */
 
 /*
- * File:   D1.hpp
+ * File:   D22.hpp
  * Author: Ronen Gilead-Raz <ronengi@gmail.com>
  *
- * Created on January 13, 2018, 11:11 PM
+ * Created on January 14, 2018, 12:02 AM
  */
 
-#ifndef D1_HPP
-#define D1_HPP
+#ifndef D22_HPP
+#define D22_HPP
 
 #include <iostream>
 using namespace std;
-#include "B1.hpp"
+#include "B2.hpp"
 
-class D1 : public B1 {
+class D22 : public B2 {
 public:
-    void vf() override;
-    void f();
+    void pvf() override;
+private:
+    int i1 = 123;
 };
 
-#endif /* D1_HPP */
+
+#endif /* D22_HPP */
+
