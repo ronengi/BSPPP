@@ -17,15 +17,23 @@
 
 
 /*
- * 02
+ * 03
  */
 int main(int argc, char** argv) {
+    cout << "\n" << "01" << "\n";
     B1 b1;
     b1.vf();
     b1.f();
 
+    cout << "\n" << "02" << "\n";
     D1 d1;
     d1.vf();
     d1.f();
+
+    cout << "\n" << "03" << "\n";
+    B1& rb1 = d1;
+    rb1.vf();
+    rb1.f();
+
     return 0;
 }
