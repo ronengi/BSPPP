@@ -21,7 +21,7 @@ class B1 {
 public:
     virtual void vf();
     void f();
-    virtual void pv1() =0;
+    virtual void pvf() =0;
 };
 
 #endif /* B1_HPP */

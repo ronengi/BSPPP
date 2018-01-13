@@ -5,27 +5,21 @@
  */
 
 /*
- * File:   main.cpp
+ * File:   D2.hpp
  * Author: Ronen Gilead-Raz <ronengi@gmail.com>
  *
- * Created on January 13, 2018, 10:56 PM
+ * Created on January 13, 2018, 11:53 PM
  */
 
+#ifndef D2_HPP
+#define D2_HPP
 
-#include "B1.hpp"
 #include "D1.hpp"
-#include "D2.hpp"
 
+class D2 : public D1 {
+public:
+    void pvf() override;
+};
 
-/*
- * 06
- */
-int main(int argc, char** argv) {
-    cout << "\n" << "06" << "\n";
-    D2 d2;
-    d2.vf();
-    d2.f();
-    d2.pvf();
+#endif /* D2_HPP */
 
-    return 0;
-}
