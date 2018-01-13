@@ -2,7 +2,9 @@
 *o
 *swp
 build/
+dist/
 nbproject/
+.dep.inc
 *jpg
 
 # other executables
