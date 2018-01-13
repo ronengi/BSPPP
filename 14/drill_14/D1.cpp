@@ -11,3 +11,7 @@
 void D1::vf() {
     cout << "D1::vf()" << "\n";
 }
+
+void D1::f() {
+    cout << "D1::f()" << "\n";
+}

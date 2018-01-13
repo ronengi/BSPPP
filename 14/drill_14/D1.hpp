@@ -19,6 +19,7 @@
 class D1 : public B1 {
 public:
     void vf() override;
+    void f();
 };
 
 #endif /* D1_HPP */
