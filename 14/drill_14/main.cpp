@@ -13,15 +13,19 @@
 
 
 #include "B1.hpp"
+#include "D1.hpp"
 
 
 /*
- * 01
+ * 02
  */
 int main(int argc, char** argv) {
     B1 b1;
     b1.vf();
     b1.f();
+
+    D1 d1;
+    d1.vf();
+    d1.f();
     return 0;
 }
-

@@ -5,23 +5,20 @@
  */
 
 /*
- * File:   B1.hpp
+ * File:   D1.hpp
  * Author: Ronen Gilead-Raz <ronengi@gmail.com>
  *
- * Created on January 13, 2018, 10:57 PM
+ * Created on January 13, 2018, 11:11 PM
  */
 
-#ifndef B1_HPP
-#define B1_HPP
+#ifndef D1_HPP
+#define D1_HPP
 
-#include <iostream>
-using namespace std;
+#include "B1.hpp"
 
-class B1 {
+class D1 : public B1 {
 public:
-    virtual void vf();
-    void f();
-
+    void vf() override;
 };
 
-#endif /* B1_HPP */
+#endif /* D1_HPP */

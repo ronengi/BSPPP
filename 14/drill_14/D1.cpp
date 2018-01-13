@@ -4,13 +4,10 @@
  * and open the template in the editor.
  */
 
-#include "B1.hpp"
 
-void B1::vf() {
-    cout << "B1::vf()" << "\n";
-}
+#include "D1.hpp"
 
 
-void B1::f() {
-    cout << "B1::f()" << "\n";
+void D1::vf() {
+    cout << "D1::vf()" << "\n";
 }
