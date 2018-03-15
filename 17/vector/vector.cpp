@@ -19,8 +19,18 @@ namespace simplified {
         delete[] elem;
     }
 
+    /*
     double& vector::operator[](int i) {
         return elem[i];
+    }
+    */
+
+    double vector::get(int i) const {
+        return elem[i];
+    }
+
+    void vector::set(int i, double v) {
+        elem[i] = v;
     }
 
 }

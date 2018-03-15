@@ -17,14 +17,20 @@
 namespace simplified {
 
     class vector {
-        int sz;
-        double *elem;
 
     public:
         vector(int s);
         ~vector();
 
-        double& operator[](int i);
+        // double& operator[](int i);
+
+        double get(int i) const;
+       void set(int i, double v);
+
+    private:
+        int sz;
+        double *elem;
+
     };
 
 }

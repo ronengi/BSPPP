@@ -8,27 +8,36 @@
  * File:   main.cpp
  * Author: Ronen Gilead-Raz <ronengi@gmail.com>
  *
- * Created on March 14, 2018, 12:06 AM
+ * Created on March 15, 2018, 11:36 PM
  */
 
 #include <iostream>
-#include "vector.hpp"
 
 using namespace std;
+
+void main_03();
+void main_04();
+void main_05();
+
+/*
+ *
+ */
+void print(char* s) {
+    cout << "\n";
+    for(int i = 0; s[i] != '\0'; ++i)
+        cout << s[i];
+    cout << "\n";
+}
+
 
 /*
  *
  */
 int main(int argc, char** argv) {
-    int n = 10;
-    simplified::vector v1(n);
-    // v1[3] = 12.34;
-    for(int i = 0; i < n; ++i) {
-        // cout << " " << v1[i];
-        v1.set(i, 1.1 * i);
-        cout << "v[" << i << "]==" << v1.get(i) << "\n";
-    }
-    cout << "\n";
+
+    // main_03();
+    // main_04();
+    main_05();
 
     return 0;
 }
