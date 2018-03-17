@@ -18,12 +18,15 @@ using namespace std;
 void main_03();
 void main_04();
 void main_05();
+void main_07();
+void main_08();
+void main_09();
 
 /*
  *
  */
 void print(char* s) {
-    cout << "\n";
+    // cout << "\n";
     for(int i = 0; s[i] != '\0'; ++i)
         cout << s[i];
     cout << "\n";
@@ -37,7 +40,10 @@ int main(int argc, char** argv) {
 
     // main_03();
     // main_04();
-    main_05();
+    // main_05();
+    // main_07();
+    // main_08();
+    main_09();
 
     return 0;
 }
