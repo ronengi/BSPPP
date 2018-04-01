@@ -8,6 +8,7 @@
 
 namespace simplified {
 
+    // constructor
     vector::vector(int s) :
         sz{s}, elem{new double[s]}
     {
@@ -15,18 +16,28 @@ namespace simplified {
                 elem[i] = 0;
     }
 
+    // initializer list constructor
     vector::vector(initializer_list<double> lst) :
         sz{static_cast<int>(lst.size())}, elem{new double[sz]}
     {
             copy(lst.begin(), lst.end(), elem);     // initialize using std::copy()
     }
 
+    // copy constructor
+    vector::vector(const vector& arg) :
+        sz{arg.sz}, elem{new double[arg.sz]}
+    {
+            copy(arg.elem, arg.elem+sz, elem);
+    }
+
+    // destructor
     vector::~vector() {
         delete[] elem;
     }
 
 
     /*
+    // subscripting set
     double& vector::operator[](int i) {
         return elem[i];
     }
@@ -40,12 +51,12 @@ namespace simplified {
         elem[i] = v;
     }
 
-
+    // get size
     int vector::size() const {
         return sz;
     }
 
-
+    // output stream representation
     ostream& operator<<(ostream& os, const vector& vv) {
         ostringstream ss("");
         ss << "simplified::vector(" << vv.size() << ")\n";

@@ -26,11 +26,18 @@ int main(int argc, char** argv) {
     for(int i = 0; i < n; ++i) {
         v1.set(i, 1.1 * i);
     }
-    // cout << "v[" << i << "]==" << v1.get(i) << "\n";
     cout << v1 << "\n";
 
     simplified::vector v2{1, 2, 3};
     cout << v2 << "\n";
+
+    simplified::vector v3{v2};      // v3 = v2
+    cout << v3 << "\n";
+
+    v2.set(1, 99);
+    v3.set(0, 88);
+    cout << v2 << "\n";
+    cout << v3 << "\n";
 
     return 0;
 }

@@ -31,6 +31,8 @@ namespace simplified {
     public:
         vector(int s);
         vector(initializer_list<double> lst);
+        vector(const vector& arg);  // copy constructor
+
         ~vector();
 
         // double& operator[](int i);
