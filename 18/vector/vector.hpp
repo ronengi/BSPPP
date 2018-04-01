@@ -32,10 +32,12 @@ namespace simplified {
         vector(int s);
         vector(initializer_list<double> lst);
         vector(const vector& arg);  // copy constructor
+        vector(vector&& arg);       // move constructor
 
         ~vector();
 
         vector& operator=(const vector& arg);   // copy assignment
+        vector& operator=(vector&& arg);        // move assignment
 
         // double& operator[](int i);   // subscription set
         double get(int i) const;

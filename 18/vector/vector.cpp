@@ -30,6 +30,14 @@ namespace simplified {
             copy(arg.elem, arg.elem+arg.sz, elem);
     }
 
+    // move constructor
+    vector::vector(vector&& arg) :
+        sz{arg.sz}, elem{arg.elem}
+    {
+            arg.elem = nullptr;
+            arg.sz = 0;
+    }
+
     // destructor
     vector::~vector() {
         delete[] elem;
@@ -44,6 +52,17 @@ namespace simplified {
         sz = arg.sz;
         return *this;   // return reference to the assigned vector
     }
+
+    // move assignment
+    vector& vector::operator=(vector&& arg) {
+        delete[] elem;
+        elem = arg.elem;
+        sz = arg.sz;
+        arg.elem = nullptr;
+        arg.sz = 0;
+        return *this;
+    }
+
 
     /*
     // subscription set
