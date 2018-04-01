@@ -29,7 +29,7 @@ namespace simplified {
     class vector {
 
     public:
-        vector(int s);
+        explicit vector(int s);     // avoid implicit int to vector conversion
         vector(initializer_list<double> lst);
         vector(const vector& arg);  // copy constructor
         vector(vector&& arg);       // move constructor
