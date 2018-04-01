@@ -27,7 +27,7 @@ namespace simplified {
     vector::vector(const vector& arg) :
         sz{arg.sz}, elem{new double[arg.sz]}
     {
-            copy(arg.elem, arg.elem+sz, elem);
+            copy(arg.elem, arg.elem+arg.sz, elem);
     }
 
     // destructor
@@ -35,9 +35,18 @@ namespace simplified {
         delete[] elem;
     }
 
+    // copy assignment
+    vector& vector::operator=(const vector& arg) {
+        double* p = new double[arg.sz];
+        copy(arg.elem, arg.elem+arg.sz, p);
+        delete[] elem;
+        elem = p;
+        sz = arg.sz;
+        return *this;   // return reference to the assigned vector
+    }
 
     /*
-    // subscripting set
+    // subscription set
     double& vector::operator[](int i) {
         return elem[i];
     }

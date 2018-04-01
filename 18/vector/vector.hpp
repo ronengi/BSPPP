@@ -35,12 +35,13 @@ namespace simplified {
 
         ~vector();
 
-        // double& operator[](int i);
+        vector& operator=(const vector& arg);   // copy assignment
 
+        // double& operator[](int i);   // subscription set
         double get(int i) const;
-       void set(int i, double v);
+        void set(int i, double v);
 
-       int size() const;
+        int size() const;
 
     private:
         int sz;

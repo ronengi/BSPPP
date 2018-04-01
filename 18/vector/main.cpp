@@ -39,6 +39,13 @@ int main(int argc, char** argv) {
     cout << v2 << "\n";
     cout << v3 << "\n";
 
+    simplified::vector v4(12);
+    cout << v4 << "\n";
+
+    v4 = v3;
+    cout << v4 << "\n";
+
+
     return 0;
 }
 
