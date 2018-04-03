@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     simplified::vector v1(n);
     // v1[3] = 12.34;
     for(int i = 0; i < n; ++i) {
-        v1.set(i, 1.1 * i);
+        v1[i] = 1.1 * i;
     }
     cout << v1 << "\n";
 
@@ -34,8 +34,8 @@ int main(int argc, char** argv) {
     simplified::vector v3{v2};      // v3 = v2
     cout << v3 << "\n";
 
-    v2.set(1, 99);
-    v3.set(0, 88);
+    v2[1] = 99;
+    v3[0] = 88;
     cout << v2 << "\n";
     cout << v3 << "\n";
 

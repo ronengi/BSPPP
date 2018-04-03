@@ -64,19 +64,14 @@ namespace simplified {
     }
 
 
-    /*
     // subscription set
     double& vector::operator[](int i) {
         return elem[i];
     }
-    */
 
-    double vector::get(int i) const {
+    // subscription get
+    const double& vector::operator[](int i) const {
         return elem[i];
-    }
-
-    void vector::set(int i, double v) {
-        elem[i] = v;
     }
 
     // get size
@@ -89,7 +84,7 @@ namespace simplified {
         ostringstream ss("");
         ss << "simplified::vector(" << vv.size() << ")\n";
         for(int i = 0; i < vv.size(); ++i)
-            ss << "    [" << i << "]== " << vv.get(i) << "\n";
+            ss << "    [" << i << "]== " << vv[i] << "\n";
         return os << ss.str();
     }
 

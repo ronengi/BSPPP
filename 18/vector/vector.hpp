@@ -39,9 +39,8 @@ namespace simplified {
         vector& operator=(const vector& arg);   // copy assignment
         vector& operator=(vector&& arg);        // move assignment
 
-        // double& operator[](int i);   // subscription set
-        double get(int i) const;
-        void set(int i, double v);
+        double& operator[](int i);              // subscription set
+        const double& operator[](int i) const;  // subscription get
 
         int size() const;
 
