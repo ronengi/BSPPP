@@ -138,6 +138,7 @@ namespace simplified {
         delete[] elem;
     }
 
+    // TODO: re-implement using an allocator
     // copy assignment
     template<typename T, typename A>
     vector<T, A>& vector<T, A>::operator=(const vector<T, A>& arg) {
