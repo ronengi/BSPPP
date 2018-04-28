@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 #include "vector.hpp"
 
 using std::cout;
@@ -23,6 +24,8 @@ using std::out_of_range;
 using std::runtime_error;
 using std::exception;
 
+using simplified::vector;
+using simplified::Iterator;
 
 /*
  *
@@ -30,7 +33,7 @@ using std::exception;
 int main(int argc, char** argv) {
     int n = 5;
 
-    simplified::vector<double> v1(n);
+    vector<double> v1(n);
     for(int i = 0; i < n; ++i) {
         v1[i] = 1.1 * i;
     }
@@ -43,10 +46,10 @@ int main(int argc, char** argv) {
         cerr << "\nOut Of Range Error: " << e.what() << "\n\n";
     }
 
-    simplified::vector<string> v2{"hello", "how", "are", "you", " ? "};
+    vector<string> v2{"hello", "how", "are", "you", " ? "};
     cout << v2 << "\n";
 
-    simplified::vector<string> v3{v2};      // v3 = v2
+    vector<string> v3{v2};      // v3 = v2
     cout << v3 << "\n";
 
     v2[1] = "who";
@@ -54,12 +57,27 @@ int main(int argc, char** argv) {
     cout << v2 << "\n";
     cout << v3 << "\n";
 
-    simplified::vector<string> v4(2);
+    vector<string> v4(2);
     cout << v4 << "\n";
 
     v4 = v3;
     cout << v4 << "\n";
 
+
+    vector<int> v5{0, 1, 2, 3, 4, 5};
+
+    cout << "\n";
+    cout << v5 << "\n";
+
+    // vector<int>::iterator p = std::find(v5.begin(), v5.end(), 4);
+    Iterator<vector<int>> p = std::find(v5.begin(), v5.end(), 4);
+
+    if(p == v5.end())
+        cout << "not found\n";
+    else {
+        cout << p << "\n";
+        cout << *p << "\n";
+    }
 
     return 0;
 }

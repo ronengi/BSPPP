@@ -48,6 +48,12 @@ namespace simplified {
     class vector {
 
     public:
+        using size_type = unsigned long;
+        using value_type = T;
+        using iterator = T*;
+        using const_iterator = const T*;
+
+
         vector();                               // default constructor
         explicit vector(int s, T dflt = T());   // constructor - avoid implicit int to vector conversion
         vector(initializer_list<T> lst);        // initializer list constructor
@@ -65,12 +71,18 @@ namespace simplified {
         T& operator[](int i);                       // subscription set - unchecked
         const T& operator[](int i) const;           // subscription get - unchecked
 
-        int size() const;
-        int capacity() const;                       // amount of space available
+
+        size_type size() const;                     // get size
+        size_type capacity() const;                       // amount of space available
 
         void reserve(int newalloc);                 // add space for new elements
         void resize(int newsize, T dflt = T());     // resize and initialize new elements
         void push_back(const T& val);               // increase size by one; add a new element
+
+        iterator begin();
+        const_iterator begin() const;
+        iterator end();
+        const_iterator end() const;
 
 
     private:
@@ -80,7 +92,9 @@ namespace simplified {
         int space;          // number of elements + number of free slots
     };
 
-    template<typename T, typename A> ostream& operator<<(ostream& os, const vector<T, A>& vv);
+
+    template<typename T, typename A>
+    ostream& operator<<(ostream& os, const vector<T, A>& vv);
 
 
 
@@ -205,15 +219,16 @@ namespace simplified {
         return elem[i];
     }
 
+
     // get size
     template<typename T, typename A>
-    int vector<T, A>::size() const {
+    typename vector<T, A>::size_type vector<T, A>::size() const {
         return sz;
     }
 
     // get amount of space available
     template<typename T, typename A>
-    int vector<T, A>::capacity() const {
+    typename vector<T, A>::size_type vector<T, A>::capacity() const {
         return space;
     }
 
@@ -264,19 +279,48 @@ namespace simplified {
     }
 
 
-    // output stream representation
     template<typename T, typename A>
-    ostream& operator<<(ostream& os, const vector<T, A>& vv) {
-        ostringstream ss("");
-        ss << "simplified::vector(" << vv.size() << ")\n";
-        for(int i = 0; i < vv.size(); ++i)
-            ss << "    [" << i << "]== " << vv[i] << "\n";
-        return os << ss.str();
+    typename vector<T, A>::iterator vector<T, A>::begin() {
+        return elem;
     }
+
+    template<typename T, typename A>
+    typename vector<T, A>::const_iterator vector<T, A>::begin() const {
+        return elem;
+    }
+
+    template<typename T, typename A>
+    typename vector<T, A>::iterator vector<T, A>::end() {
+        return (elem + sz);
+    }
+
+    template<typename T, typename A>
+    typename vector<T, A>::const_iterator vector<T, A>::end() const {
+        return (elem + sz);
+    }
+
 
     /*************************************************************************
      *                   end of template definition                          *
      *************************************************************************/
+
+
+    // output stream representation
+    template<typename T, typename A>
+    ostream& operator<<(ostream& os, const vector<T, A>& vv) {
+        ostringstream ss("");
+        ss << "simplified::vector(" << vv.size() << ")";
+        for(auto x : vv)
+            ss << "\t[" << x << "]";
+        // for(int i = 0; i < vv.size(); ++i)
+            // ss << "\t" << i << ":[" << vv[i] << "]";
+        return os << ss.str();
+    }
+
+
+
+    template<typename C>
+    using Iterator = typename C::iterator;  // Iterator<C> means typename C::iterator
 
 
 } // namespace simplified
