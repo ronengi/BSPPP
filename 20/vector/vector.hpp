@@ -310,10 +310,8 @@ namespace simplified {
     ostream& operator<<(ostream& os, const vector<T, A>& vv) {
         ostringstream ss("");
         ss << "simplified::vector(" << vv.size() << ")";
-        for(auto x : vv)
+        for(const auto& x : vv)
             ss << "\t[" << x << "]";
-        // for(int i = 0; i < vv.size(); ++i)
-            // ss << "\t" << i << ":[" << vv[i] << "]";
         return os << ss.str();
     }
 
