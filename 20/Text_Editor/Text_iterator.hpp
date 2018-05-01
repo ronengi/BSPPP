@@ -41,8 +41,10 @@ public:
 
     char& operator*();
 
-    Text_iterator& operator++();
+    Text_iterator& operator++();                // increment '++p'
     Text_iterator& operator--();
+
+    Text_iterator& operator++(int i);           // for 'p++' usage
 
     bool operator==(const Text_iterator& other);
     bool operator!=(const Text_iterator& other);

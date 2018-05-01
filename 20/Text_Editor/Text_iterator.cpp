@@ -18,6 +18,7 @@ char& Text_iterator::operator*() {
 }
 
 
+// increment '++p'
 Text_iterator& Text_iterator::operator++() {
     ++pos;                                  // proceed to next character
     if(pos == (*ln).end()) {
@@ -27,6 +28,13 @@ Text_iterator& Text_iterator::operator++() {
     }
     return *this;
 }
+
+// TODO check if this form is handled correctly
+// for 'p++' usage
+Text_iterator& Text_iterator::operator++(int i) {
+    return operator++();
+}
+
 
 // TODO implement Text_iterator::operator--
 Text_iterator& Text_iterator::operator--() {
