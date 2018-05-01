@@ -50,7 +50,7 @@ namespace simplified {
     public:
         using size_type = unsigned long;
         using value_type = T;
-        using iterator = T*;
+        using iterator = T*;        // T*
         using const_iterator = const T*;
 
 
@@ -84,6 +84,8 @@ namespace simplified {
         iterator end();
         const_iterator end() const;
 
+        iterator erase(iterator p);
+        iterator insert(iterator p, const T& val);
 
     private:
         A alloc;            // use allocate to handle memory for elements
@@ -297,6 +299,31 @@ namespace simplified {
     template<typename T, typename A>
     typename vector<T, A>::const_iterator vector<T, A>::end() const {
         return (elem + sz);
+    }
+
+    template<typename T, typename A>
+    typename vector<T, A>::iterator vector<T, A>::erase(iterator p) {
+        if(p == end())
+            return p;
+        for(auto pos = p + 1; pos != end(); ++pos)
+            *(pos-1) = *pos;            // move all elements afrer pos
+        alloc.destroy(&*(end()-1));     // destroy last element
+        --sz;
+        return p;
+    }
+
+    template<typename T, typename A>
+    typename vector<T, A>::iterator vector<T, A>::insert(iterator p, const T& val) {
+        int index = p - begin();    // elements may be moved if reserve() is used
+        if(size() == capacity())
+            reserve(size() == 0 ? 8 : 2 * size());
+        alloc.construct(elem + sz, *(end()-1));     // last element is copied into un-initialized space
+        ++sz;
+        iterator pp = begin() + index;      // the place to put val
+        for(auto pos = end()-1; pos != pp; --pos)
+            *pos = *(pos - 1);              // move elements after pp
+        *(begin() + index) = val;           // insert val
+        return pp;
     }
 
 

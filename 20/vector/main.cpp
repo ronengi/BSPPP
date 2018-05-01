@@ -79,6 +79,13 @@ int main(int argc, char** argv) {
         cout << *p << "\n";
     }
 
+    v5.insert(v5.begin()+2, 77);
+    cout << v5 << "\n";
+
+
+    v5.erase(v5.end()-2);
+    cout << v5 << "\n";
+
     return 0;
 }
 
