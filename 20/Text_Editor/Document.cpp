@@ -8,6 +8,7 @@
 #include "Document.hpp"
 #include "Text_iterator.hpp"
 
+
 istream& operator>>(istream& is, Document& d) {
     for(char ch; is.get(ch); ) {
         // cerr << "ch== " << ch << "\n";
@@ -50,17 +51,6 @@ void Document::erase_line(int n) {
 }
 
 
-// TODO use <algorithms> find: make Text_iterator satisfy iterator concepts
-Text_iterator Document::find(Text_iterator first, Text_iterator last, const char& value) {
-    for (; first != last; ++first) {
-        if (*first == value) {
-            return first;
-        }
-    }
-    return last;
-}
-
-
 bool Document::match(Text_iterator first, Text_iterator last, const string& s) {
     Text_iterator p = first;
     for(auto ps : s) {
@@ -73,12 +63,13 @@ bool Document::match(Text_iterator first, Text_iterator last, const string& s) {
     return true;
 }
 
+
 Text_iterator Document::find_txt(Text_iterator first, Text_iterator last, const string& s) {
     if(s.size() == 0)
         return last;
     char first_char = s[0];
     while(true) {
-        auto p = find(first, last, first_char);
+        auto p = std::find(first, last, first_char);
         if(p == last || match(p, last, s))
             return p;
 

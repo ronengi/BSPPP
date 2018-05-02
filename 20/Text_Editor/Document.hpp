@@ -18,7 +18,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
-//#include <algorithm>
+#include <algorithm>
 using namespace std;
 
 using Line = vector<char>;
@@ -36,7 +36,6 @@ struct Document {
 
     void erase_line(int n);         // delete line number n (if exists)
 
-    Text_iterator find(Text_iterator first, Text_iterator last, const char& value);
     bool match(Text_iterator first, Text_iterator last, const string& s);
     Text_iterator find_txt(Text_iterator first, Text_iterator last, const string& s);
 

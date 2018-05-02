@@ -29,6 +29,22 @@ class Document;
 
 /*
  * Keep track of line and character position within a line
+ *
+ * Satisfies Iterator concept:
+ *
+ *  all these evaluate as true:
+ *      is_copy_constructible<Text_iterator>::value
+ *      is_copy_assignable<Text_iterator>::value
+ *      is_destructible<Text_iterator>::value
+ *      is_swappable<Text_iterator>::value
+ *
+ *  all these are defined:
+ *      Text_iterator::difference_type
+ *      Text_iterator::value_type
+ *      Text_iterator::pointer
+ *      Text_iterator::reference
+ *      Text_iterator::iterator_category
+ *
  */
 class Text_iterator {
     list<Line>::iterator ln;
@@ -37,6 +53,12 @@ class Text_iterator {
     const Document* docP;
 
 public:
+    using difference_type = std::ptrdiff_t;
+    using value_type = char;
+    using pointer = const char*;    //std::allocator_traits<Allocator>::pointer;
+    using reference = const char&;  // value_type&;
+    using iterator_category = std::forward_iterator_tag;
+
     Text_iterator(list<Line>::iterator ll, Line::iterator pp, const Document* dd);  // start at line pp, char pos
 
     char& operator*();
