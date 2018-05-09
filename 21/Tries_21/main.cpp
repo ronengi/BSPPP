@@ -15,6 +15,7 @@
 using namespace std;
 
 int prices();
+int dowjones();
 
 /*
  *
@@ -22,6 +23,7 @@ int prices();
 int main(int argc, char** argv) {
 
     // prices();
+    dowjones();
 
     return 0;
 }
