@@ -16,14 +16,19 @@ using namespace std;
 
 int prices();
 int dowjones();
+int qdict();
+int qdict2();
 
 /*
  *
  */
 int main(int argc, char** argv) {
 
-    // prices();
-    dowjones();
+//    prices();
+//    dowjones();
+//    qdict();
+    qdict2();
+
 
     return 0;
 }

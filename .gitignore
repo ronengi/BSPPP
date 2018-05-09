@@ -6,6 +6,7 @@ dist/
 nbproject/
 .dep.inc
 *jpg
+21/*/*txt
 
 # other executables
 09/Library/library
