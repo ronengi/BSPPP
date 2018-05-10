@@ -12,30 +12,49 @@
 using namespace std;
 
 
-struct clean_char {
-    bool operator()(char ch) {
-        return ispunct(ch);
+struct qdict_order {
+    bool operator()(const string& a, const string& b) const {
+        auto pa = a.begin();
+        auto pb = b.begin();
+        while(pa != a.end() && pb != b.end()) {
+            char ca = tolower(*pa);
+            char cb = tolower(*pb);
+
+            if(ispunct(ca) && ispunct(cb)) {
+                ++pa;
+                ++pb;
+                continue;
+            }
+            if(ispunct(ca)) {
+                ++pa;
+                continue;
+            }
+            if(ispunct(cb)) {
+                ++pb;
+                continue;
+            }
+
+            if(ca < cb)
+                return true;
+            if(ca > cb)
+                return false;
+            ++pa;
+            ++pb;
+        }
+        while(pb != b.end() && ispunct(*pb))
+            ++pb;
+        if(pb == b.end())
+            return false;
+        return true;
     }
 };
 
-
-struct clean_str {
-    void operator()(string& str) {
-        str.erase(remove_if(str.begin(), str.end(), clean_char()), str.end());
-        transform(str.begin(), str.end(), str.begin(), ::tolower);
-//        str[j] = tolower(str[i]);
-    }
-};
 
 int qdict2() {
     ifstream ifs{"src.txt"};    // open input stream
     ofstream ofs{"dst2.txt"};    // open output stream
 
-               // make input iterator for stream
-        // make output iterator for stream
-
-    set<string> b{istream_iterator<string> {ifs}, istream_iterator<string> {}};      // buffer is a vector initialized from input
-//    for_each(b.begin(), b.end(), clean_str());
+    set<string, qdict_order> b{istream_iterator<string> {ifs}, istream_iterator<string> {}};      // buffer is a set initialized from input
 
     copy(b.begin(), b.end(), ostream_iterator<string> {ofs, "\n"});   // copy buffer to output, no duplicates
 
