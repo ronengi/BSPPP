@@ -32,7 +32,7 @@ struct Item {
 istream& operator>>(istream& is, Item& it);
 ostream& operator<<(ostream& os, const Item& it);
 
-template<template<typename> typename C>
+template<template<typename>class C>
 ostream& operator<<(ostream& os, const C<Item>& cit) {
     constexpr int seplength = 100;
     os << "\n";

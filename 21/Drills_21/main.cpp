@@ -17,6 +17,7 @@ using namespace std;
 
 int d_01();
 int d_08();
+int d_map_01();
 
 
 /*
@@ -25,7 +26,8 @@ int d_08();
 int main(int argc, char** argv) {
 
 //    d_01();
-    d_08();
+//    d_08();
+    d_map_01();
     return 0;
 }
 
