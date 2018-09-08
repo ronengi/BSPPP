@@ -14,14 +14,17 @@
 #include <iostream>
 using namespace std;
 
+
 ostream& operator<<(ostream& os, const int* arr) {
     for(int i = 0; i < 5; ++i)
-        cout << *(arr+i) << " ";
+        os << *(arr+i) << " ";
+    return os;
 }
 
+
 void copy(int* f1, int* e1, int* f2) {
-    for(int* it1 = f1, *it2 = f2; it1 != e1; ++it1, ++it2)
-        *it2 = *it1;
+    while(f1 < e1)
+        *f2++ = *f1++;
 }
 
 
@@ -33,12 +36,9 @@ int main(int argc, char** argv) {
     int ai1[5] = {1, 2, 3, 4, 5};
     int ai2[5];
 
-    cout << ai1 << "\n";
-    // cout << ai2 << "\n";
-
     copy(ai1, ai1+5, ai2);
 
-    cout << ai1 << "\n";
+    // cout << ai1 << "\n";
     cout << ai2 << "\n";
 
 
